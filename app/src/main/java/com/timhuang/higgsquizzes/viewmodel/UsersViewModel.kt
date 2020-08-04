@@ -18,6 +18,9 @@ class UsersViewModel: ViewModel() {
 
     private val useCase : UsersUseCase = UsersUseCase(repository = DepencyProvider.getUserRepository())
 
+    var moreData = false
+    private set
+
     val users:LiveData<List<User>>
     get() = useCase.users
 
@@ -29,7 +32,7 @@ class UsersViewModel: ViewModel() {
 
     fun getUsers(){
         viewModelScope.launch {
-            useCase.getUsers()
+            moreData = useCase.getUsers()
         }
     }
 

@@ -51,7 +51,7 @@ class UserRepositoryTest{
 
     @Test
     fun getUsers_success() = runBlockingTest{
-        val result = repository.getUsers()
+        val result = repository.getUsers(0,20)
         assertThat(result,`is`(Result::class.java))
         if (result is Result.Success){
             assertThat(result.data, `is`(notNullValue()))

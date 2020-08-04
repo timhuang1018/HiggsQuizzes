@@ -18,7 +18,7 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class UsersUseCaseTest{
 
-    val testDispatcher : TestCoroutineDispatcher = TestCoroutineDispatcher()
+    private val testDispatcher : TestCoroutineDispatcher = TestCoroutineDispatcher()
 
     @get:Rule
     var instantExcutorRule = InstantTaskExecutorRule()
@@ -67,5 +67,17 @@ class UsersUseCaseTest{
         assertThat(usersUseCase.users.value,`is`(nullValue()))
         assertThat(usersUseCase.error.value, `is`(notNullValue()))
         assertThat(usersUseCase.isLoading.value, `is`(false))
+    }
+
+    @Test
+    fun fetchUsersFail_hasMoreData() = runBlockingTest{
+        //GIVEN fetch data will fail
+        repository.makeApiFail()
+
+        //WHEN
+        val moreData = usersUseCase.getUsers()
+
+        //THEN fail request, more data still true
+        assertThat(moreData, `is`(true))
     }
 }

@@ -4,6 +4,7 @@ import com.timhuang.higgsquizzes.data.User
 import com.timhuang.higgsquizzes.data.UserDetail
 import com.timhuang.higgsquizzes.helper.RequestState
 import com.timhuang.higgsquizzes.helper.Result
+import kotlin.math.sin
 
 /**
  * Created by timhuang on 2020/8/4.
@@ -13,10 +14,9 @@ import com.timhuang.higgsquizzes.helper.Result
 
 class UserRepositoryImpl(private val remoteApi: RemoteApi) :UserRepository{
 
-    //ignore paging now
-    override suspend fun getUsers(): Result<List<User>> {
+    override suspend fun getUsers(since:Int,perPage:Int): Result<List<User>> {
         return try {
-            val result = remoteApi.getUsers(0,20)
+            val result = remoteApi.getUsers(since,perPage)
             Result.Success(result)
         }catch (e:Exception){
             Result.Failure

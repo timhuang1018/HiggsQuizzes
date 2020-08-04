@@ -16,7 +16,7 @@ class FakeTestRepository : UserRepository {
         shouldThrow = true
     }
 
-    override suspend fun getUsers(): Result<List<User>> {
+    override suspend fun getUsers(since:Int,perPage:Int): Result<List<User>> {
         if (shouldThrow){
             return Result.Failure
         }
