@@ -7,5 +7,19 @@
         android:id="@+id/usersPage"
         android:name="com.timhuang.higgsquizzes.ui.UsersPage"
         android:label="UsersPage"
-        />
+        >
+        <action
+            android:id="@+id/action_usersPage_to_userPage"
+            app:destination="@id/userPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/userPage"
+        android:name="com.timhuang.higgsquizzes.ui.UserPage"
+        android:label="UserPage"
+        >
+        <argument
+            android:name="login"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

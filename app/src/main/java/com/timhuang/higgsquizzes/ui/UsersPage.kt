@@ -9,12 +9,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.timhuang.higgsquizzes.R
 import com.timhuang.higgsquizzes.adapter.AdapterClick
 import com.timhuang.higgsquizzes.adapter.AdapterListener
 import com.timhuang.higgsquizzes.adapter.UsersAdapter
+import com.timhuang.higgsquizzes.data.User
 import com.timhuang.higgsquizzes.viewmodel.UsersViewModel
 import kotlinx.android.synthetic.main.users_page.*
 
@@ -86,6 +88,9 @@ class UsersPage :Fragment(),AdapterListener {
 
     //simply respond click and navigate at here
     override fun listenClick(item: AdapterClick) {
-
+        if (item is User){
+            val action = UsersPageDirections.actionUsersPageToUserPage(item.login)
+            findNavController().navigate(action)
+        }
     }
 }
