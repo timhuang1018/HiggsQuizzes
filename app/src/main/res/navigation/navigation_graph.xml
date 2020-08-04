@@ -6,5 +6,6 @@
     <fragment
         android:id="@+id/usersPage"
         android:name="com.timhuang.higgsquizzes.ui.UsersPage"
-        android:label="UsersPage" />
+        android:label="UsersPage"
+        />
 </navigation>
