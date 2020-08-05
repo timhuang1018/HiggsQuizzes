@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HiggsQuizzes</string>
+    <string name="text_list_title">Bidirectional Followed</string>
 </resources>

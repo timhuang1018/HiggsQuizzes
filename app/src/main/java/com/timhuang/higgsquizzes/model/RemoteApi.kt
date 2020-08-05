@@ -38,10 +38,10 @@ interface RemoteApi {
     @GET("/users/{userName}")
     suspend fun getUser(@Path("userName")userName:String): UserDetail
 
-    @GET("/users/{username}/followers")
-    suspend fun getFollowers(@Path("userName")userName: String):List<User>
+    @GET("/users/{userName}/followers")
+    suspend fun getFollowers(@Path("userName")userName: String, @Query("page")page:Int,@Query("per_page") perPage:Int):List<User>
 
-    @GET("/users/{username}/following")
-    suspend fun getFollowings(@Path("userName")userName: String):List<User>
+    @GET("/users/{userName}/following")
+    suspend fun getFollowings(@Path("userName")userName: String, @Query("page")page:Int,@Query("per_page") perPage:Int):List<User>
 
 }

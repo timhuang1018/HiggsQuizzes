@@ -27,11 +27,20 @@ class FakeTestRepository : UserRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getFollowers(userName: String): Result<List<User>> {
+    override suspend fun getFollowers(
+        userName: String,
+        page: Int,
+        perPage: Int
+    ): Result<List<User>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getFollowings(userName: String): Result<List<User>> {
+    override suspend fun getFollowings(
+        userName: String,
+        page: Int,
+        perPage: Int
+    ): Result<List<User>> {
         TODO("Not yet implemented")
     }
+
 }

@@ -14,8 +14,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.timhuang.higgsquizzes.R
+import com.timhuang.higgsquizzes.adapter.ListType
+import com.timhuang.higgsquizzes.adapter.UsersAdapter
 import com.timhuang.higgsquizzes.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.user_page.*
 
@@ -25,6 +28,7 @@ import kotlinx.android.synthetic.main.user_page.*
 class UserPage :Fragment(){
 
     private lateinit var viewModel: UserViewModel
+    private lateinit var biFollowAdapter :UsersAdapter
     val args :UserPageArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,6 +44,12 @@ class UserPage :Fragment(){
     private fun initUI() {
 
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        biFollowAdapter = UsersAdapter(null,ListType.FOLLOWS)
+
+        horizontal_list.apply {
+            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            adapter = biFollowAdapter
+        }
 
         viewModel.getUser(args.login).observe(viewLifecycleOwner, Observer { user->
                 with(iv_headshot){
@@ -78,6 +88,15 @@ class UserPage :Fragment(){
         viewModel.error.observe(viewLifecycleOwner, Observer {
             it.contentGetHandled()?.let {errorMessage->
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.biFollows(args.login).observe(viewLifecycleOwner, Observer {
+            biFollowAdapter.submitList(it)
+            if (it.isEmpty()){
+                list_container.visibility = View.GONE
+            }else{
+                list_container.visibility = View.VISIBLE
             }
         })
 

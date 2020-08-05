@@ -1,5 +1,6 @@
 package com.timhuang.higgsquizzes.model
 
+import android.util.Log
 import com.timhuang.higgsquizzes.data.User
 import com.timhuang.higgsquizzes.data.UserDetail
 import com.timhuang.higgsquizzes.helper.RequestState
@@ -32,20 +33,22 @@ class UserRepositoryImpl(private val remoteApi: RemoteApi) :UserRepository{
         }
     }
 
-    override suspend fun getFollowers(userName: String): Result<List<User>> {
+    override suspend fun getFollowers(userName: String,page:Int,perPage:Int): Result<List<User>> {
         return try {
-            val result = remoteApi.getFollowers(userName)
+            val result = remoteApi.getFollowers(userName,page,perPage)
             Result.Success(result)
         }catch (e:Exception){
+            Log.e("getFollowings","$e")
             Result.Failure
         }
     }
 
-    override suspend fun getFollowings(userName: String): Result<List<User>> {
+    override suspend fun getFollowings(userName: String,page:Int,perPage:Int): Result<List<User>> {
         return try {
-            val result = remoteApi.getFollowings(userName)
+            val result = remoteApi.getFollowings(userName,page,perPage)
             Result.Success(result)
         }catch (e:Exception){
+            Log.e("getFollowings","$e")
             Result.Failure
         }
     }

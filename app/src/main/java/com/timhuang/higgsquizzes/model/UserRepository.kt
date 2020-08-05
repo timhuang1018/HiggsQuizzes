@@ -12,7 +12,7 @@ interface UserRepository {
 
     suspend fun getUsers(since:Int,perPage:Int):Result<List<User>>
     suspend fun getUser(userName: String):Result<UserDetail>
-    suspend fun getFollowers(userName: String):Result<List<User>>
-    suspend fun getFollowings(userName: String):Result<List<User>>
+    suspend fun getFollowers(userName: String,page:Int,perPage:Int):Result<List<User>>
+    suspend fun getFollowings(userName: String,page:Int,perPage:Int):Result<List<User>>
 
 }

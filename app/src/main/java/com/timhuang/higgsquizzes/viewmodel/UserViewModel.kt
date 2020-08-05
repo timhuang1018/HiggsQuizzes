@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.timhuang.higgsquizzes.data.User
 import com.timhuang.higgsquizzes.data.UserDetail
 import com.timhuang.higgsquizzes.di.DepencyProvider
 import com.timhuang.higgsquizzes.helper.EventWrapper
@@ -26,5 +27,14 @@ class UserViewModel :ViewModel(){
 
     fun getUser(userName:String) :LiveData<UserDetail> {
         return useCase.getUser(userName)
+    }
+
+    fun biFollows(userName:String):LiveData<List<User>>{
+        return useCase.biFollows(userName)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        useCase.cancel()
     }
 }

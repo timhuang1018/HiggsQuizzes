@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.timhuang.higgsquizzes.R
 import com.timhuang.higgsquizzes.adapter.AdapterClick
 import com.timhuang.higgsquizzes.adapter.AdapterListener
+import com.timhuang.higgsquizzes.adapter.ListType
 import com.timhuang.higgsquizzes.adapter.UsersAdapter
 import com.timhuang.higgsquizzes.data.User
 import com.timhuang.higgsquizzes.viewmodel.UsersViewModel
@@ -48,7 +49,7 @@ class UsersPage :Fragment(),AdapterListener {
     }
 
     private fun initUI() {
-        usersAdapter = UsersAdapter(this@UsersPage)
+        usersAdapter = UsersAdapter(this@UsersPage,ListType.USERS)
 
         vertical_list.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -57,7 +58,6 @@ class UsersPage :Fragment(),AdapterListener {
 
         viewModel.apply {
             users.observe(viewLifecycleOwner, Observer { list->
-                Log.d("UserPage","list:$list")
                 usersAdapter.submitList(list)
             })
             isLoading.observe(viewLifecycleOwner, Observer { isLoading->
@@ -69,7 +69,7 @@ class UsersPage :Fragment(),AdapterListener {
             })
             error.observe(viewLifecycleOwner, Observer {
                 it.contentGetHandled()?.let {errorMessage->
-                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
                 }
             })
         }
